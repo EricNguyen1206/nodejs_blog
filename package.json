@@ -4,7 +4,7 @@
     "description": "",
     "main": "src/index.js",
     "scripts": {
-        "format_code": "prettier --single-quote --trailing-comma all --tab-width 4 --write package.json src/**/*.{js,json,scss}",
+        "format_code": "lint-staged",
         "start": "nodemon --inspect src/index.js",
         "watch": "node-sass --recursive --watch src/resources/scss/ --output src/public/css/",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,11 +32,12 @@
         "express": "^4.17.1",
         "express-handlebars": "^5.3.2"
     },
+    "lint-staged": {
+        "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+    },
     "husky": {
       "hooks": {
-        "pre-commit": "npm test",
-        "pre-push": "npm test",
-        "...": "..."
+        "pre-commit": "lint-staged"
       }
     },
     "devDependencies": {

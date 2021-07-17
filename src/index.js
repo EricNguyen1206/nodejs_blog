@@ -1,11 +1,17 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
+const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
+
+const route = require('./routes/index');
+const db = require('./config/database');
+
 const app = express();
 const port = 3000;
 
-const route = require('./routes/index');
+// Connect to DB
+db.connect();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -15,16 +21,20 @@ app.use(
     }),
 );
 app.use(express.json());
+app.use(methodOverride('_method'));
 
 //HTTP logger
 // app.use(morgan('combined'));
 
 //Template engine
-app.engine('handlebars', handlebars());
-// exphbs.create({ extname=".hbs" });
+app.engine('handlebars', handlebars({
+    helpers: {
+        sum: (a, b) => a + b,
+    }
+}));
 
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'resources/views'));
+app.set('views', path.join(__dirname, 'resources', 'views'));
 
 //Route init
 route(app);

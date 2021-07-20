@@ -1,4 +1,5 @@
 {
+    "author": "Eric Nguyen",
     "name": "blog",
     "version": "1.0.0",
     "description": "",
@@ -22,7 +23,6 @@
         "nodejs",
         "express"
     ],
-    "author": "Eric Nguyen",
     "license": "ISC",
     "bugs": {
         "url": "https://github.com/EricNguyen1206/nodejs_blog/issues"
